@@ -1,0 +1,75 @@
+logging:
+  config: classpath:logback-local.xml
+#dubbo:
+#  protocols:
+#    dubbo:
+#      name: dubbo # 协议名称
+#      port: -1 # 协议端口，-1 表示自增端口，从 20880 开始
+#  cloud:
+#    subscribed-services: ''
+#  consumer:
+#    # version: 1.0
+#    check: false
+#    retries: 0
+#    timeout: 5000
+#
+##  apollo中配置
+#  registry:
+#    address: zookeeper://172.21.80.37:2181?init.timeout=6000000
+spring:
+#  cloud:
+#    zookeeper:
+#      discovery:
+#        enabled: false
+#        prefer-ip-address: true #这一行被gateway发现
+#      enabled: false
+##  apollo中配置
+#      connect-string: 172.21.80.37:2181
+  datasource:
+    username: report
+    password: Liupeng@123
+#    url: jdbc:mysql://bj-cdb-ckbozhhc.sql.tencentcdb.com:60301/agedness?allowMultiQueries=true&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    url: jdbc:mysql://192.168.244.61:3307/rbac?allowMultiQueries=true&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    hikari:
+      minimum-idle: 20
+      maximum-pool-size: 50
+      connection-test-query: SELECT 1
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      pool-name: DatebookHikariCP
+  redis:
+    host: 192.168.244.61
+    port: 6379
+    password: zfzLwCr3V!GD1PS7
+    jedis:
+      pool:
+        max-active: 100 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: 2s # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        min-idle: 10 # 连接池中的最小空闲连接
+        max-idle: 50 # 连接池中的最大空闲连接
+        time-between-eviction-runs: 5m
+    timeout: 5000 #连接超时时间 单位ms
+bj66nao:
+  kafka:
+    orderTopic: dev-central-payment-order-action
+  order:
+    appName: prod-center
+    appSecret: iV5Z48JURQzWH#B+hCnqH6bY)6r(NEYwId*n!wR1w%VJIftT5m9$UO#a1^HMOZ1kGCcfPK$e!fO20hhES#p)hYI~~Gi~629k+VFk~AOOs
+  message:
+    appName: prod-center
+    appSecret: Y2GEQg$r5GvxMTC@J0
+  online-assessment:
+    # 在线测评页URL根地址, 前端需要页面地址及需要的参数
+    # https://autoscale-test.66nao.com/autoScale/paper?baseUrl=%s&scaleId=%s&scaleType=%s&taskId=%s&patientId=%s&token=%s
+    # token需要安卓端拼写
+    start-assess-url: "https://autoscale-test.66nao.com/autoScale/paper?baseUrl=%s&instanceId=%s&scaleId=%s&scaleType=%s&taskId=%s&patientId=%s"
+    # 前端回调接口服务的地址,
+    base-url: "https://dev-center.66nao.cn/agedness"
+    report-data-url: "https://dev-center.66nao.cn/agedness"
+    # 在线测评详情页URL根地址
+    # http://172.21.16.38/scale/?url=%s&id=%s&token=%s, id和token需要安卓端拼写
+    assessment-detail-url: "http://172.21.16.38/scale?url=%s&id=%s"
+  logAddressFields: address,town,nation,city,streetNo,latitude,province,street,district,name,longitude
+  ip-guide:
+    directional-url: http://172.21.80.7:5001/directed_question_parse
+  tts-url: http://172.21.80.7:5006/tts

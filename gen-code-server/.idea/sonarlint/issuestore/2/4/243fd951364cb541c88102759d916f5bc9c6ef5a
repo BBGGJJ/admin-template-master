@@ -1,0 +1,13 @@
+
+E
+java:S3740"/Provide the parametrized type for this generic.(éóÌ…
+t
+java:S2293G"YReplace the type specification in this constructor call with the diamond operator ("<>").(“ùÕ©ÿÿÿÿÿ
+x
+java:S1488G"]Immediately return this expression instead of assigning it to the temporary variable "pager".(“ùÕ©ÿÿÿÿÿ
+<
+java:S1948"&Make "page" transient or serializable.(úÀ°²
+A
+java:S1948"&Make "data" transient or serializable.(ŒÝðƒüÿÿÿÿ
+S
+java:S1117F"8Rename "page" which hides the field declared at line 45.(ö÷¨ÿÿÿÿÿ

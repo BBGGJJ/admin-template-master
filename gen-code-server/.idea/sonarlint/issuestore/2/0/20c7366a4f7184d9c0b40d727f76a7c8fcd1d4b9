@@ -1,0 +1,13 @@
+
+x
+java:S1488t"]Immediately return this expression instead of assigning it to the temporary variable "pager".(¯åñèûÿÿÿÿ
+y
+java:S1488˜"]Immediately return this expression instead of assigning it to the temporary variable "pager".(ÖÜ´ıÿÿÿÿ
+E
+java:S1948#"*Make "mappData" transient or serializable.(‹†ã×úÿÿÿÿ
+<
+java:S1948%"&Make "data" transient or serializable.(××£
+S
+java:S1117s"8Rename "page" which hides the field declared at line 36.(Ÿñ¬Şşÿÿÿÿ
+U
+java:S1117—"9Rename "page" which hides the field declared at line 126.(ºø¾«üÿÿÿÿ

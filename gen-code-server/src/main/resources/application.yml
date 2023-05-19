@@ -1,0 +1,49 @@
+server:
+  port: 9111
+  tomcat:
+    maxConnections: 200
+spring:
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings:
+      number_format: 0.##########
+  profiles:
+    active: ${PROFILE:qvitß}
+  application:
+    name: agedness-admin
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+    static-path-pattern: /static/**
+  resources:
+    add-mappings: false
+    static-locations: classpath:/static/
+  # 配置东时区时间
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  #上传文件大小 静态页面设置
+  servlet:
+    multipart:
+      maxFileSize: 1028MB
+      maxRequestSize: 1024MB
+
+app:
+  id: prod-center #认知中心标准版后端项目
+apollo:
+  access-key:
+    secret: ${APOLLO_SECRET:5eb852de1584417a8bbf8fbaaa080935}
+  meta: ${APOLLO_META:http://172.21.80.16:8080}
+  bootstrap:
+    enabled: true
+    namespaces: application,agedness-admin
+  cluster: ${CLUSTER:default} #一般使用固定值 测试开发环境
+  cacheDir: /tmp/apollo-cache
+
+mybatis:
+  mapper-locations: classpath*:mapper/func/*.xml,classpath:mapper/*/*.xml,classpath:mapper/*.xml
+  type-aliases-package: com.bj66nao.admin.*.entity.*

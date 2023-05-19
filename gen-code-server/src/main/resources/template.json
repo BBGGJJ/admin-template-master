@@ -1,0 +1,30 @@
+[
+  {
+    "key": "vue",
+    "title": "vue-2.0-前端模版"
+  },
+  {
+    "key": "vue-antd",
+    "title": "vue-antd-2.0-前端模版"
+  },
+  {
+    "key": "vue-elementui",
+    "title": "vue-elementui-2.0-前端模版"
+  },
+  {
+    "key": "react-template",
+    "title": "react-template前端项目"
+  },
+  {
+    "key": "react-umi3-ts",
+    "title": "react-umi3-ts前端项目"
+  },
+  {
+    "key": "spring-boot",
+    "title": "java-spring-boot后端项目"
+  },
+  {
+    "key": "spring-boot-dubbo-server",
+    "title": "dubbo-server(java后端mybatis-plus项目)"
+  }
+]

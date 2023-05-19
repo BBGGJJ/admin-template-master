@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zomyun.erp.boss.auth.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.zomyun.erp.boss.auth.entity.RoleEntity">
+            <result column="id" jdbcType="INTEGER" property="id" />
+            <result column="role_status" jdbcType="BIT" property="roleStatus" />
+            <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+            <result column="role_description" jdbcType="VARCHAR" property="roleDescription" />
+            <result column="app_code" jdbcType="INTEGER" property="appCode" />
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+     `id`,`role_status`,`role_name`,`role_description`,`app_code`,`create_time`,`update_time`
+    </sql>
+
+    <sql id="limit">
+        <if test='offset != 0 and limit != 0'>
+            limit #{offset}, #{limit}
+        </if>
+
+        <if test='offset == 0 and limit != 0'>
+            limit #{limit}
+        </if>
+    </sql>
+
+    <sql id="queryWhere">
+        <where>
+              <if test="id != null">
+                  and `id` = #{id}
+              </if>
+              <if test="roleStatus != null">
+                  and `role_status` = #{roleStatus}
+              </if>
+              <if test="roleName != null">
+                  and `role_name` = #{roleName}
+              </if>
+              <if test="roleDescription != null">
+                  and `role_description` = #{roleDescription}
+              </if>
+              <if test="appCode != null">
+                  and `app_code` = #{appCode}
+              </if>
+              <if test="createTime != null">
+                  and `create_time` = #{createTime}
+              </if>
+              <if test="updateTime != null">
+                  and `update_time` = #{updateTime}
+              </if>
+        </where>
+    </sql>
+
+    <select id="selectByParam" parameterType="com.zomyun.erp.boss.auth.param.RoleParam" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from a_role
+        <include refid="queryWhere" />
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="orderByClause == null">
+            order by id desc
+        </if>
+        <include refid="limit" />
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        SELECT count(*)
+        from a_role
+        <include refid="queryWhere"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from a_role
+        where id = #{id}
+    </select>
+
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from a_role
+        where id  in (
+        <foreach collection="roleIds" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete from a_role
+        where id = #{id}
+    </delete>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="roleStatus != null">
+                  `role_status`,
+             </if>
+              <if test="roleName != null">
+                  `role_name`,
+             </if>
+              <if test="roleDescription != null">
+                  `role_description`,
+             </if>
+              <if test="appCode != null">
+                  `app_code`,
+             </if>
+              <if test="createTime != null">
+                  `create_time`,
+             </if>
+              <if test="updateTime != null">
+                  `update_time`,
+             </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+              <if test="roleStatus != null">
+                 #{roleStatus},
+              </if>
+              <if test="roleName != null">
+                 #{roleName},
+              </if>
+              <if test="roleDescription != null">
+                 #{roleDescription},
+              </if>
+              <if test="appCode != null">
+                 #{appCode},
+              </if>
+              <if test="createTime != null">
+                 #{createTime},
+              </if>
+              <if test="updateTime != null">
+                 #{updateTime},
+              </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch"  >
+        INSERT INTO a_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    `role_status`,
+                    `role_name`,
+                    `role_description`,
+                    `app_code`,
+                    `create_time`,
+                    `update_time`,
+        </trim>
+         values
+        <foreach collection="list" item="item" index="index" separator=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{item.roleStatus},
+                    #{item.roleName},
+                    #{item.roleDescription},
+                    #{item.appCode},
+                    #{item.createTime},
+                    #{item.updateTime},
+            </trim>
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate"  >
+        INSERT INTO a_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="roleStatus != null">
+                    `role_status`,
+                </if>
+                <if test="roleName != null">
+                    `role_name`,
+                </if>
+                <if test="roleDescription != null">
+                    `role_description`,
+                </if>
+                <if test="appCode != null">
+                    `app_code`,
+                </if>
+                <if test="createTime != null">
+                    `create_time`,
+                </if>
+                <if test="updateTime != null">
+                    `update_time`,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="roleStatus != null">
+                    #{role_status},
+                </if>
+                <if test="roleName != null">
+                    #{role_name},
+                </if>
+                <if test="roleDescription != null">
+                    #{role_description},
+                </if>
+                <if test="appCode != null">
+                    #{app_code},
+                </if>
+                <if test="createTime != null">
+                    #{create_time},
+                </if>
+                <if test="updateTime != null">
+                    #{update_time},
+                </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <set>
+                <if test="roleStatus != null">
+                    `role_status` = #{roleStatus},
+                </if>
+                <if test="roleName != null">
+                    `role_name` = #{roleName},
+                </if>
+                <if test="roleDescription != null">
+                    `role_description` = #{roleDescription},
+                </if>
+                <if test="appCode != null">
+                    `app_code` = #{appCode},
+                </if>
+                <if test="createTime != null">
+                    `create_time` = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    `update_time` = #{updateTime},
+                </if>
+        </set>
+    </insert>
+    <update id="updateByPrimaryKeySelective"  useGeneratedKeys="true">
+        update a_role
+        <set>
+            <if test="roleStatus != null" >
+                 `role_status` = #{roleStatus},
+            </if>
+            <if test="roleName != null" >
+                 `role_name` = #{roleName},
+            </if>
+            <if test="roleDescription != null" >
+                 `role_description` = #{roleDescription},
+            </if>
+            <if test="appCode != null" >
+                 `app_code` = #{appCode},
+            </if>
+            <if test="createTime != null" >
+                 `create_time` = #{createTime},
+            </if>
+            <if test="updateTime != null" >
+                 `update_time` = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

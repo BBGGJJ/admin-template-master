@@ -1,0 +1,13 @@
+
+`	java:S112E"FDefine and throw a dedicated exception instead of using a generic one.(¦“ßÿÿÿÿÿ
+{
+java:S1488="`Immediately return this expression instead of assigning it to the temporary variable "htmlText".(òÖ÷ëøÿÿÿÿ
+{
+java:S1488U"`Immediately return this expression instead of assigning it to the temporary variable "htmlText".(òÖ÷ëøÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(âÛóÚ
+K
+java:S1874<"0Remove this use of "Template"; it is deprecated.(ÊÙ½Ğúÿÿÿÿ
+V	java:S125<"<This block of commented-out lines of code should be removed.(ÊÙ½Ğúÿÿÿÿ
+n
+java:S2139C"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾

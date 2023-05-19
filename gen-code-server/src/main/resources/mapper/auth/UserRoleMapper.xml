@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zomyun.erp.boss.auth.mapper.UserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.zomyun.erp.boss.auth.entity.UserRoleEntity">
+            <result column="id" jdbcType="INTEGER" property="id" />
+            <result column="user_id" jdbcType="BIGINT" property="userId" />
+            <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+     `id`,`user_id`,`role_id`
+    </sql>
+
+    <sql id="queryWhere">
+        <where>
+              <if test="id != null">
+                  and `id` = #{id}
+              </if>
+              <if test="userId != null">
+                  and `user_id` = #{userId}
+              </if>
+              <if test="roleId != null">
+                  and `role_id` = #{roleId}
+              </if>
+        </where>
+    </sql>
+
+    <select id="selectByParam" parameterType="com.zomyun.erp.boss.auth.param.UserRoleParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from a_user_role
+        <include refid="queryWhere" />
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        SELECT count(*)
+        from a_user_role
+        <include refid="queryWhere"/>
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from a_user_role
+        where user_id = #{userId}
+    </select>
+    <delete id="deleteByUserId">
+        delete from a_user_role
+        where user_id = #{userId}
+    </delete>
+    <delete id="deleteByPrimaryKey">
+        delete from a_user_role
+        where id = #{id}
+    </delete>
+    <delete id="deleteByPrimaryKeys">
+        delete from a_user_role
+        where id in (
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="userId != null">
+                  `user_id`,
+             </if>
+              <if test="roleId != null">
+                  `role_id`,
+             </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+              <if test="userId != null">
+                 #{userId},
+              </if>
+              <if test="roleId != null">
+                 #{roleId},
+              </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch"  >
+        INSERT INTO a_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    `user_id`,
+                    `role_id`,
+        </trim>
+         values
+        <foreach collection="list" item="item" index="index" separator=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{item.userId},
+                    #{item.roleId},
+            </trim>
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate"  >
+        INSERT INTO a_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="userId != null">
+                    `user_id`,
+                </if>
+                <if test="roleId != null">
+                    `role_id`,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="userId != null">
+                    #{user_id},
+                </if>
+                <if test="roleId != null">
+                    #{role_id},
+                </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <set>
+                <if test="userId != null">
+                    `user_id` = #{userId},
+                </if>
+                <if test="roleId != null">
+                    `role_id` = #{roleId},
+                </if>
+        </set>
+    </insert>
+    <update id="updateByPrimaryKeySelective"  useGeneratedKeys="true">
+        update a_user_role
+        <set>
+            <if test="userId != null" >
+                 `user_id` = #{userId},
+            </if>
+            <if test="roleId != null" >
+                 `role_id` = #{roleId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

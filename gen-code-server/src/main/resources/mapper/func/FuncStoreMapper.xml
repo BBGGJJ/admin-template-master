@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj66nao.admin.sys.mapper.FuncStoreMapper">
+
+    <sql id="limit">
+        <if test='page.offset != 0 and page.limit != 0'>
+            limit #{page.offset}, #{page.limit}
+        </if>
+
+        <if test='page.offset == 0 and page.limit != 0'>
+            limit #{page.limit}
+        </if>
+    </sql>
+    <sql id="queryWhere">
+        <where>
+            <foreach collection="param.valueMapp" item="value" index="key" >
+                and `${key}` = #{value}
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        <foreach collection="param.fieldMapp" item="value" index="key" separator=",">
+            `${key}` as `${value}`
+        </foreach>
+    </sql>
+    <select id="findPage" resultType="java.util.HashMap">
+        select
+        <if test="page.distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from ${param.table}
+        <include refid="queryWhere"/>
+        <if test="param.sort != null and param.sort.size > 0 ">
+            order by
+            <if test="param.sortAsc">
+                ASC
+            </if>
+            <if test="!param.sortAsc">
+                DESC
+            </if>
+        </if>
+
+        <include refid="limit"/>
+    </select>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT count(*)
+        from ${param.table}
+        <include refid="queryWhere"/>
+    </select>
+    <select id="find" resultType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ${param.table}
+        where ${keyName} = #{keyValue}
+    </select>
+    <delete id="delete">
+        delete from ${table}
+        where ${keyName} = #{keyValue}
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ${param.table}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="param.valueMapp" item="value" index="key" separator=",">
+                `${key}`
+            </foreach>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <foreach collection="param.valueMapp" item="value" index="key" separator=",">
+                #{value}
+            </foreach>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update ${param.table}
+        <set>
+            <foreach collection="param.valueMapp" item="value" index="key" separator=",">
+                `${key}` = #{value}
+            </foreach>
+        </set>
+        where `${keyName}` = #{keyValue}
+    </update>
+    <select id="queryLinkDatas" resultType="java.util.HashMap">
+        SELECT ${key},${desc}
+        from ${tableName}
+        WHERE
+        ${key} in (
+        <foreach collection="keyValues" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+        <if test="queryCondition != null and queryCondition.length() > 0">
+            and ${queryCondition}
+        </if>
+    </select>
+    <select id="queryLinkData" resultType="java.util.HashMap">
+        SELECT ${key},${desc}
+        from ${tableName}
+        WHERE
+        ${key} = #{keyValue}
+        <if test="queryCondition != null and queryCondition.length() > 0">
+            and ${queryCondition}
+        </if>
+    </select>
+    <select id="querySuggest" resultType="java.util.HashMap">
+        SELECT ${key},${desc}
+        from ${tableName}
+         where 1=1
+            <if test='param.suggest != null and param.suggest.length() > 0'>
+               and  ${desc} LIKE CONCAT(#{param.suggest},'%')
+            </if>
+            <if test="queryCondition != null and queryCondition.length() > 0">
+                and ${queryCondition}
+            </if>
+            <if test='param.offset != 0 and param.limit != 0'>
+                limit #{param.offset}, #{param.limit}
+            </if>
+            <if test='param.offset == 0 and param.limit != 0'>
+                limit #{param.limit}
+            </if>
+
+    </select>
+    <select id="querySuggestExt" resultType="java.util.HashMap">
+        SELECT ${key},${desc}
+        <if test="extFields != null and extFields.size > 0">
+            <foreach collection="extFields" item="value" index="key">
+                ,`${value}`
+            </foreach>
+        </if>
+        from ${tableName}
+        where 1=1
+        <if test='param.suggest != null and param.suggest.length() > 0'>
+            and  ${desc} LIKE CONCAT(#{param.suggest},'%')
+        </if>
+        <if test="queryCondition != null and queryCondition.length() > 0">
+            and ${queryCondition}
+        </if>
+        <if test='param.offset != 0 and param.limit != 0'>
+            limit #{param.offset}, #{param.limit}
+        </if>
+        <if test='param.offset == 0 and param.limit != 0'>
+            limit #{param.limit}
+        </if>
+
+    </select>
+
+</mapper>

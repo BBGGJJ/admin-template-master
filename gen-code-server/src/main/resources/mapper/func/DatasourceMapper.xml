@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj66nao.admin.sys.mapper.DatasourceMapper">
+    <resultMap id="BaseResultMap" type="com.bj66nao.admin.sys.entity.DatasourceEntity">
+            <result column="id" jdbcType="INTEGER" property="id" />
+            <result column="datebase_type" jdbcType="TINYINT" property="datebaseType" />
+            <result column="source_name" jdbcType="VARCHAR" property="sourceName" />
+            <result column="url" jdbcType="VARCHAR" property="url" />
+            <result column="user_name" jdbcType="VARCHAR" property="userName" />
+            <result column="password" jdbcType="VARCHAR" property="password" />
+            <result column="driver" jdbcType="VARCHAR" property="driver" />
+            <result column="remark" jdbcType="VARCHAR" property="remark" />
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+     `id`,`datebase_type`,`source_name`,`url`,`user_name`,`password`,`driver`,`remark`,`create_time`,`update_time`
+    </sql>
+
+    <sql id="limit">
+        <if test='offset != 0 and limit != 0'>
+            limit #{offset}, #{limit}
+        </if>
+
+        <if test='offset == 0 and limit != 0'>
+            limit #{limit}
+        </if>
+    </sql>
+
+    <sql id="queryWhere">
+        <where>
+              <if test="id != null">
+                  and `id` = #{id}
+              </if>
+              <if test="datebaseType != null">
+                  and `datebase_type` = #{datebaseType}
+              </if>
+              <if test="sourceName != null">
+                  and `source_name` = #{sourceName}
+              </if>
+              <if test="url != null">
+                  and `url` = #{url}
+              </if>
+              <if test="userName != null">
+                  and `user_name` = #{userName}
+              </if>
+              <if test="password != null">
+                  and `password` = #{password}
+              </if>
+              <if test="driver != null">
+                  and `driver` = #{driver}
+              </if>
+              <if test="remark != null">
+                  and `remark` = #{remark}
+              </if>
+              <if test="createTime != null">
+                  and `create_time` = #{createTime}
+              </if>
+              <if test="updateTime != null">
+                  and `update_time` = #{updateTime}
+              </if>
+                <if test="suggest != null">
+                    and `source_name` like concat(#{suggest},'%')
+                </if>
+        </where>
+    </sql>
+
+    <select id="selectByParam" parameterType="com.bj66nao.admin.sys.param.DatasourceParam" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from s_datasource
+        <include refid="queryWhere" />
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="orderByClause == null">
+            order by id desc
+        </if>
+        <include refid="limit" />
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        SELECT count(*)
+        from s_datasource
+        <include refid="queryWhere"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from s_datasource
+        where id = #{id}
+    </select>
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from s_datasource
+        where id IN(
+        <foreach collection="ids" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete from s_datasource
+        where id = #{id}
+    </delete>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO s_datasource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="datebaseType != null">
+                  `datebase_type`,
+             </if>
+              <if test="sourceName != null">
+                  `source_name`,
+             </if>
+              <if test="url != null">
+                  `url`,
+             </if>
+              <if test="userName != null">
+                  `user_name`,
+             </if>
+              <if test="password != null">
+                  `password`,
+             </if>
+              <if test="driver != null">
+                  `driver`,
+             </if>
+              <if test="remark != null">
+                  `remark`,
+             </if>
+              <if test="createTime != null">
+                  `create_time`,
+             </if>
+              <if test="updateTime != null">
+                  `update_time`,
+             </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+              <if test="datebaseType != null">
+                 #{datebaseType},
+              </if>
+              <if test="sourceName != null">
+                 #{sourceName},
+              </if>
+              <if test="url != null">
+                 #{url},
+              </if>
+              <if test="userName != null">
+                 #{userName},
+              </if>
+              <if test="password != null">
+                 #{password},
+              </if>
+              <if test="driver != null">
+                 #{driver},
+              </if>
+              <if test="remark != null">
+                 #{remark},
+              </if>
+              <if test="createTime != null">
+                 #{createTime},
+              </if>
+              <if test="updateTime != null">
+                 #{updateTime},
+              </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"  useGeneratedKeys="true">
+        update s_datasource
+        <set>
+            <if test="datebaseType != null" >
+                 `datebase_type` = #{datebaseType},
+            </if>
+            <if test="sourceName != null" >
+                 `source_name` = #{sourceName},
+            </if>
+            <if test="url != null" >
+                 `url` = #{url},
+            </if>
+            <if test="userName != null" >
+                 `user_name` = #{userName},
+            </if>
+            <if test="password != null" >
+                 `password` = #{password},
+            </if>
+            <if test="driver != null" >
+                 `driver` = #{driver},
+            </if>
+            <if test="remark != null" >
+                 `remark` = #{remark},
+            </if>
+            <if test="createTime != null" >
+                 `create_time` = #{createTime},
+            </if>
+            <if test="updateTime != null" >
+                 `update_time` = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

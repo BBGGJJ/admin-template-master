@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zomyun.erp.boss.auth.mapper.RoleUriMapper">
+    <resultMap id="BaseResultMap" type="com.zomyun.erp.boss.auth.entity.RoleUriEntity">
+            <result column="id" jdbcType="INTEGER" property="id" />
+            <result column="uri_id" jdbcType="INTEGER" property="uriId" />
+            <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+     `id`,`uri_id`,`role_id`
+    </sql>
+    <sql id="queryWhere">
+        <where>
+              <if test="id != null">
+                  and `id` = #{id}
+              </if>
+              <if test="uriId != null">
+                  and `uri_id` = #{uriId}
+              </if>
+              <if test="roleId != null">
+                  and `role_id` = #{roleId}
+              </if>
+        </where>
+    </sql>
+
+    <select id="selectByParam" parameterType="com.zomyun.erp.boss.auth.param.RoleUriParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from a_role_uri
+        <include refid="queryWhere" />
+    </select>
+    <select id="selectByRoleIds" resultMap="BaseResultMap">
+        select DISTINCT
+        <include refid="Base_Column_List" />
+        from a_role_uri
+        where role_id in(
+        <foreach collection="roleIds" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+    </select>
+    <delete id="deleteByPrimaryKey">
+        delete from a_role_uri
+        where id = #{id}
+    </delete>
+    <delete id="deleteByPrimaryKeys">
+        delete from a_role_uri
+        where id in(
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+    <delete id="deleteByRoleId">
+        delete from a_role_uri
+        where role_id = #{roleId}
+    </delete>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_role_uri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="uriId != null">
+                  `uri_id`,
+             </if>
+              <if test="roleId != null">
+                  `role_id`,
+             </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+              <if test="uriId != null">
+                 #{uriId},
+              </if>
+              <if test="roleId != null">
+                 #{roleId},
+              </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch"  >
+        INSERT INTO a_role_uri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    `uri_id`,
+                    `role_id`,
+        </trim>
+         values
+        <foreach collection="list" item="item" index="index" separator=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{item.uriId},
+                    #{item.roleId},
+            </trim>
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate"  >
+        INSERT INTO a_role_uri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="uriId != null">
+                    `uri_id`,
+                </if>
+                <if test="roleId != null">
+                    `role_id`,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="uriId != null">
+                    #{uri_id},
+                </if>
+                <if test="roleId != null">
+                    #{role_id},
+                </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <set>
+                <if test="uriId != null">
+                    `uri_id` = #{uriId},
+                </if>
+                <if test="roleId != null">
+                    `role_id` = #{roleId},
+                </if>
+        </set>
+    </insert>
+</mapper>

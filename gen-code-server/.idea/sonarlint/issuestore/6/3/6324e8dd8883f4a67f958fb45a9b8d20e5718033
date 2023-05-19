@@ -1,0 +1,16 @@
+
+m	java:S135E"YReduce the total number of break and continue statements in this loop to use at most one.(±¡Å
+—
+java:S1186["€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ó†Ó–
+E
+java:S1874."/Remove this use of "isEmpty"; it is deprecated.(¶æƒ
+E
+java:S1874."/Remove this use of "isEmpty"; it is deprecated.(¶æƒ
+E
+java:S1874."/Remove this use of "isEmpty"; it is deprecated.(¶æƒ
+E
+java:S1874J"/Remove this use of "isEmpty"; it is deprecated.(¶æƒ
+E
+java:S1874J"/Remove this use of "isEmpty"; it is deprecated.(¶æƒ
+E
+java:S1874J"/Remove this use of "isEmpty"; it is deprecated.(¶æƒ

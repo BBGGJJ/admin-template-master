@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj66nao.admin.sys.mapper.FuncPropertyMapper">
+    <resultMap id="BaseResultMap" type="com.bj66nao.admin.sys.entity.FuncPropertyEntity">
+            <result column="id" jdbcType="INTEGER" property="id" />
+            <result column="func_id" jdbcType="INTEGER" property="funcId" />
+            <result column="prop_name" jdbcType="VARCHAR" property="propName" />
+            <result column="prop_key" jdbcType="VARCHAR" property="propKey" />
+            <result column="column_name" jdbcType="VARCHAR" property="columnName" />
+            <result column="view_type" jdbcType="VARCHAR" property="viewType" />
+            <result column="default_value" jdbcType="VARCHAR" property="defaultValue" />
+            <result column="required" jdbcType="BIT" property="required" />
+            <result column="regex" jdbcType="VARCHAR" property="regex" />
+            <result column="max_length" jdbcType="INTEGER" property="maxLength" />
+            <result column="index" jdbcType="TINYINT" property="index" />
+            <result column="edit" jdbcType="BIT" property="edit" />
+            <result column="search_view" jdbcType="BIT" property="searchView" />
+            <result column="detail_view" jdbcType="BIT" property="detailView" />
+            <result column="list_view" jdbcType="BIT" property="listView" />
+            <result column="join_next" jdbcType="BIT" property="joinNext" />
+            <result column="link" jdbcType="VARCHAR" property="link" />
+            <result column="data_type" jdbcType="TINYINT" property="dataType" />
+            <result column="link_table_name" jdbcType="VARCHAR" property="linkTableName" />
+            <result column="table_prop_field" jdbcType="VARCHAR" property="tablePropField" />
+            <result column="table_desc_field" jdbcType="VARCHAR" property="tableDescField" />
+            <result column="table_query_condition" jdbcType="VARCHAR" property="tableQueryCondition" />
+            <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+            <result column="url_prop_field" jdbcType="VARCHAR" property="urlPropField" />
+            <result column="url_desc_field" jdbcType="VARCHAR" property="urlDescField" />
+            <result column="url_param" jdbcType="VARCHAR" property="urlParam" />
+            <result column="enum_data" jdbcType="VARCHAR" property="enumData" />
+            <result column="is_valid" jdbcType="BIT" property="isValid" />
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+            <result column="primary_key" jdbcType="BIT" property="primaryKey" />
+            <result column="create" jdbcType="BIT" property="create" />
+            <result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        `id`,`func_id`,`prop_name`,`prop_key`,`column_name`,`view_type`,`default_value`,`required`,`regex`,`max_length`,`index`,`edit`,`search_view`,`detail_view`,`list_view`,`join_next`,`link`,`data_type`,`link_table_name`,`table_prop_field`,`table_desc_field`,`table_query_condition`,`link_url`,`url_prop_field`,`url_desc_field`,`url_param`,`enum_data`,`is_valid`,`create_time`,`update_time`,`primary_key`,`create`,`dict_name`
+    </sql>
+
+    <sql id="limit">
+        <if test='offset != 0 and limit != 0'>
+            limit #{offset}, #{limit}
+        </if>
+
+        <if test='offset == 0 and limit != 0'>
+            limit #{limit}
+        </if>
+    </sql>
+
+    <sql id="queryWhere">
+        <where>
+              <if test="id != null">
+                  and `id` = #{id}
+              </if>
+              <if test="funcId != null">
+                  and `func_id` = #{funcId}
+              </if>
+              <if test="propName != null">
+                  and `prop_name` = #{propName}
+              </if>
+              <if test="propKey != null">
+                  and `prop_key` = #{propKey}
+              </if>
+              <if test="columnName != null">
+                  and `column_name` = #{columnName}
+              </if>
+              <if test="viewType != null">
+                  and `view_type` = #{viewType}
+              </if>
+              <if test="defaultValue != null">
+                  and `default_value` = #{defaultValue}
+              </if>
+              <if test="required != null">
+                  and `required` = #{required}
+              </if>
+              <if test="regex != null">
+                  and `regex` = #{regex}
+              </if>
+              <if test="maxLength != null">
+                  and `max_length` = #{maxLength}
+              </if>
+              <if test="index != null">
+                  and `index` = #{index}
+              </if>
+              <if test="edit != null">
+                  and `edit` = #{edit}
+              </if>
+              <if test="searchView != null">
+                  and `search_view` = #{searchView}
+              </if>
+              <if test="detailView != null">
+                  and `detail_view` = #{detailView}
+              </if>
+              <if test="listView != null">
+                  and `list_view` = #{listView}
+              </if>
+              <if test="joinNext != null">
+                  and `join_next` = #{joinNext}
+              </if>
+              <if test="link != null">
+                  and `link` = #{link}
+              </if>
+              <if test="dataType != null">
+                  and `data_type` = #{dataType}
+              </if>
+              <if test="linkTableName != null">
+                  and `link_table_name` = #{linkTableName}
+              </if>
+              <if test="tablePropField != null">
+                  and `table_prop_field` = #{tablePropField}
+              </if>
+              <if test="tableDescField != null">
+                  and `table_desc_field` = #{tableDescField}
+              </if>
+              <if test="tableQueryCondition != null">
+                  and `table_query_condition` = #{tableQueryCondition}
+              </if>
+              <if test="linkUrl != null">
+                  and `link_url` = #{linkUrl}
+              </if>
+              <if test="urlPropField != null">
+                  and `url_prop_field` = #{urlPropField}
+              </if>
+              <if test="urlDescField != null">
+                  and `url_desc_field` = #{urlDescField}
+              </if>
+              <if test="urlParam != null">
+                  and `url_param` = #{urlParam}
+              </if>
+              <if test="enumData != null">
+                  and `enum_data` = #{enumData}
+              </if>
+              <if test="isValid != null">
+                  and `is_valid` = #{isValid}
+              </if>
+              <if test="createTime != null">
+                  and `create_time` = #{createTime}
+              </if>
+              <if test="updateTime != null">
+                  and `update_time` = #{updateTime}
+              </if>
+              <if test="primaryKey != null">
+                  and `primary_key` = #{primaryKey}
+              </if>
+              <if test="create != null">
+                  and `create` = #{create}
+              </if>
+            <if test="dictName != null">
+                and `dict_name` = #{dictName}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="selectByParam" parameterType="com.bj66nao.admin.sys.param.FuncPropertyParam" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from s_func_property
+        <include refid="queryWhere" />
+         order by `index`
+        <include refid="limit" />
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        SELECT count(*)
+        from s_func_property
+        <include refid="queryWhere"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from s_func_property
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey">
+        delete from s_func_property
+        where id = #{id}
+    </delete>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO s_func_property
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="funcId != null">
+                  `func_id`,
+             </if>
+              <if test="propName != null">
+                  `prop_name`,
+             </if>
+              <if test="propKey != null">
+                  `prop_key`,
+             </if>
+              <if test="columnName != null">
+                  `column_name`,
+             </if>
+              <if test="viewType != null">
+                  `view_type`,
+             </if>
+              <if test="defaultValue != null">
+                  `default_value`,
+             </if>
+              <if test="required != null">
+                  `required`,
+             </if>
+              <if test="regex != null">
+                  `regex`,
+             </if>
+              <if test="maxLength != null">
+                  `max_length`,
+             </if>
+              <if test="index != null">
+                  `index`,
+             </if>
+              <if test="edit != null">
+                  `edit`,
+             </if>
+              <if test="searchView != null">
+                  `search_view`,
+             </if>
+              <if test="detailView != null">
+                  `detail_view`,
+             </if>
+              <if test="listView != null">
+                  `list_view`,
+             </if>
+              <if test="joinNext != null">
+                  `join_next`,
+             </if>
+              <if test="link != null">
+                  `link`,
+             </if>
+              <if test="dataType != null">
+                  `data_type`,
+             </if>
+              <if test="linkTableName != null">
+                  `link_table_name`,
+             </if>
+              <if test="tablePropField != null">
+                  `table_prop_field`,
+             </if>
+              <if test="tableDescField != null">
+                  `table_desc_field`,
+             </if>
+              <if test="tableQueryCondition != null">
+                  `table_query_condition`,
+             </if>
+              <if test="linkUrl != null">
+                  `link_url`,
+             </if>
+              <if test="urlPropField != null">
+                  `url_prop_field`,
+             </if>
+              <if test="urlDescField != null">
+                  `url_desc_field`,
+             </if>
+              <if test="urlParam != null">
+                  `url_param`,
+             </if>
+              <if test="enumData != null">
+                  `enum_data`,
+             </if>
+              <if test="isValid != null">
+                  `is_valid`,
+             </if>
+              <if test="createTime != null">
+                  `create_time`,
+             </if>
+              <if test="updateTime != null">
+                  `update_time`,
+             </if>
+              <if test="primaryKey != null">
+                  `primary_key`,
+             </if>
+              <if test="create != null">
+                  `create`,
+             </if>
+            <if test="dictName != null">
+                `dict_name`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+              <if test="funcId != null">
+                 #{funcId},
+              </if>
+              <if test="propName != null">
+                 #{propName},
+              </if>
+              <if test="propKey != null">
+                 #{propKey},
+              </if>
+              <if test="columnName != null">
+                 #{columnName},
+              </if>
+              <if test="viewType != null">
+                 #{viewType},
+              </if>
+              <if test="defaultValue != null">
+                 #{defaultValue},
+              </if>
+              <if test="required != null">
+                 #{required},
+              </if>
+              <if test="regex != null">
+                 #{regex},
+              </if>
+              <if test="maxLength != null">
+                 #{maxLength},
+              </if>
+              <if test="index != null">
+                 #{index},
+              </if>
+              <if test="edit != null">
+                 #{edit},
+              </if>
+              <if test="searchView != null">
+                 #{searchView},
+              </if>
+              <if test="detailView != null">
+                 #{detailView},
+              </if>
+              <if test="listView != null">
+                 #{listView},
+              </if>
+              <if test="joinNext != null">
+                 #{joinNext},
+              </if>
+              <if test="link != null">
+                 #{link},
+              </if>
+              <if test="dataType != null">
+                 #{dataType},
+              </if>
+              <if test="linkTableName != null">
+                 #{linkTableName},
+              </if>
+              <if test="tablePropField != null">
+                 #{tablePropField},
+              </if>
+              <if test="tableDescField != null">
+                 #{tableDescField},
+              </if>
+              <if test="tableQueryCondition != null">
+                 #{tableQueryCondition},
+              </if>
+              <if test="linkUrl != null">
+                 #{linkUrl},
+              </if>
+              <if test="urlPropField != null">
+                 #{urlPropField},
+              </if>
+              <if test="urlDescField != null">
+                 #{urlDescField},
+              </if>
+              <if test="urlParam != null">
+                 #{urlParam},
+              </if>
+              <if test="enumData != null">
+                 #{enumData},
+              </if>
+              <if test="isValid != null">
+                 #{isValid},
+              </if>
+              <if test="createTime != null">
+                 #{createTime},
+              </if>
+              <if test="updateTime != null">
+                 #{updateTime},
+              </if>
+              <if test="primaryKey != null">
+                 #{primaryKey},
+              </if>
+              <if test="create != null">
+                 #{create},
+              </if>
+            <if test="dictName != null">
+                #{dictName},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch"  >
+        INSERT INTO s_func_property
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    `func_id`,
+                    `prop_name`,
+                    `prop_key`,
+                    `column_name`,
+                    `view_type`,
+                    `default_value`,
+                    `required`,
+                    `regex`,
+                    `max_length`,
+                    `index`,
+                    `edit`,
+                    `search_view`,
+                    `detail_view`,
+                    `list_view`,
+                    `join_next`,
+                    `link`,
+                    `data_type`,
+                    `link_table_name`,
+                    `table_prop_field`,
+                    `table_desc_field`,
+                    `table_query_condition`,
+                    `link_url`,
+                    `url_prop_field`,
+                    `url_desc_field`,
+                    `url_param`,
+                    `enum_data`,
+                    `is_valid`,
+                    `create_time`,
+                    `update_time`,
+                    `primary_key`,
+                    `create`,
+                    `dict_name`,
+        </trim>
+         values
+        <foreach collection="list" item="item" index="index" separator=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{item.funcId},
+                    #{item.propName},
+                    #{item.propKey},
+                    #{item.columnName},
+                    #{item.viewType},
+                    #{item.defaultValue},
+                    #{item.required},
+                    #{item.regex},
+                    #{item.maxLength},
+                    #{item.index},
+                    #{item.edit},
+                    #{item.searchView},
+                    #{item.detailView},
+                    #{item.listView},
+                    #{item.joinNext},
+                    #{item.link},
+                    #{item.dataType},
+                    #{item.linkTableName},
+                    #{item.tablePropField},
+                    #{item.tableDescField},
+                    #{item.tableQueryCondition},
+                    #{item.linkUrl},
+                    #{item.urlPropField},
+                    #{item.urlDescField},
+                    #{item.urlParam},
+                    #{item.enumData},
+                    #{item.isValid},
+                    #{item.createTime},
+                    #{item.updateTime},
+                    #{item.primaryKey},
+                    #{item.create},
+                    #{item.dictName},
+            </trim>
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate"  >
+        INSERT INTO s_func_property
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="funcId != null">
+                    `func_id`,
+                </if>
+                <if test="propName != null">
+                    `prop_name`,
+                </if>
+                <if test="propKey != null">
+                    `prop_key`,
+                </if>
+                <if test="columnName != null">
+                    `column_name`,
+                </if>
+                <if test="viewType != null">
+                    `view_type`,
+                </if>
+                <if test="defaultValue != null">
+                    `default_value`,
+                </if>
+                <if test="required != null">
+                    `required`,
+                </if>
+                <if test="regex != null">
+                    `regex`,
+                </if>
+                <if test="maxLength != null">
+                    `max_length`,
+                </if>
+                <if test="index != null">
+                    `index`,
+                </if>
+                <if test="edit != null">
+                    `edit`,
+                </if>
+                <if test="searchView != null">
+                    `search_view`,
+                </if>
+                <if test="detailView != null">
+                    `detail_view`,
+                </if>
+                <if test="listView != null">
+                    `list_view`,
+                </if>
+                <if test="joinNext != null">
+                    `join_next`,
+                </if>
+                <if test="link != null">
+                    `link`,
+                </if>
+                <if test="dataType != null">
+                    `data_type`,
+                </if>
+                <if test="linkTableName != null">
+                    `link_table_name`,
+                </if>
+                <if test="tablePropField != null">
+                    `table_prop_field`,
+                </if>
+                <if test="tableDescField != null">
+                    `table_desc_field`,
+                </if>
+                <if test="tableQueryCondition != null">
+                    `table_query_condition`,
+                </if>
+                <if test="linkUrl != null">
+                    `link_url`,
+                </if>
+                <if test="urlPropField != null">
+                    `url_prop_field`,
+                </if>
+                <if test="urlDescField != null">
+                    `url_desc_field`,
+                </if>
+                <if test="urlParam != null">
+                    `url_param`,
+                </if>
+                <if test="enumData != null">
+                    `enum_data`,
+                </if>
+                <if test="isValid != null">
+                    `is_valid`,
+                </if>
+                <if test="createTime != null">
+                    `create_time`,
+                </if>
+                <if test="updateTime != null">
+                    `update_time`,
+                </if>
+                <if test="primaryKey != null">
+                    `primary_key`,
+                </if>
+                <if test="create != null">
+                    `create`,
+                </if>
+                <if test="dictName != null">
+                    `dict_name`,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="funcId != null">
+                    #{funcId},
+                </if>
+                <if test="propName != null">
+                    #{propName},
+                </if>
+                <if test="propKey != null">
+                    #{propKey},
+                </if>
+                <if test="columnName != null">
+                    #{columnName},
+                </if>
+                <if test="viewType != null">
+                    #{viewType},
+                </if>
+                <if test="defaultValue != null">
+                    #{defaultValue},
+                </if>
+                <if test="required != null">
+                    #{required},
+                </if>
+                <if test="regex != null">
+                    #{regex},
+                </if>
+                <if test="maxLength != null">
+                    #{maxLength},
+                </if>
+                <if test="index != null">
+                    #{index},
+                </if>
+                <if test="edit != null">
+                    #{edit},
+                </if>
+                <if test="searchView != null">
+                    #{searchView},
+                </if>
+                <if test="detailView != null">
+                    #{detailView},
+                </if>
+                <if test="listView != null">
+                    #{listView},
+                </if>
+                <if test="joinNext != null">
+                    #{joinNext},
+                </if>
+                <if test="link != null">
+                    #{link},
+                </if>
+                <if test="dataType != null">
+                    #{dataType},
+                </if>
+                <if test="linkTableName != null">
+                    #{linkTableName},
+                </if>
+                <if test="tablePropField != null">
+                    #{tablePropField},
+                </if>
+                <if test="tableDescField != null">
+                    #{tableDescField},
+                </if>
+                <if test="tableQueryCondition != null">
+                    #{tableQueryCondition},
+                </if>
+                <if test="linkUrl != null">
+                    #{linkUrl},
+                </if>
+                <if test="urlPropField != null">
+                    #{urlPropField},
+                </if>
+                <if test="urlDescField != null">
+                    #{urlDescField},
+                </if>
+                <if test="urlParam != null">
+                    #{urlParam},
+                </if>
+                <if test="enumData != null">
+                    #{enumData},
+                </if>
+                <if test="isValid != null">
+                    #{isValid},
+                </if>
+                <if test="createTime != null">
+                    #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    #{updateTime},
+                </if>
+                <if test="primaryKey != null">
+                    #{primaryKey},
+                </if>
+                <if test="create != null">
+                    #{create},
+                </if>
+                <if test="dictName != null">
+                      #{dictName},
+                </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <set>
+                <if test="funcId != null">
+                    `func_id` = #{funcId},
+                </if>
+                <if test="propName != null">
+                    `prop_name` = #{propName},
+                </if>
+                <if test="propKey != null">
+                    `prop_key` = #{propKey},
+                </if>
+                <if test="columnName != null">
+                    `column_name` = #{columnName},
+                </if>
+                <if test="viewType != null">
+                    `view_type` = #{viewType},
+                </if>
+                <if test="defaultValue != null">
+                    `default_value` = #{defaultValue},
+                </if>
+                <if test="required != null">
+                    `required` = #{required},
+                </if>
+                <if test="regex != null">
+                    `regex` = #{regex},
+                </if>
+                <if test="maxLength != null">
+                    `max_length` = #{maxLength},
+                </if>
+                <if test="index != null">
+                    `index` = #{index},
+                </if>
+                <if test="edit != null">
+                    `edit` = #{edit},
+                </if>
+                <if test="searchView != null">
+                    `search_view` = #{searchView},
+                </if>
+                <if test="detailView != null">
+                    `detail_view` = #{detailView},
+                </if>
+                <if test="listView != null">
+                    `list_view` = #{listView},
+                </if>
+                <if test="joinNext != null">
+                    `join_next` = #{joinNext},
+                </if>
+                <if test="link != null">
+                    `link` = #{link},
+                </if>
+                <if test="dataType != null">
+                    `data_type` = #{dataType},
+                </if>
+                <if test="linkTableName != null">
+                    `link_table_name` = #{linkTableName},
+                </if>
+                <if test="tablePropField != null">
+                    `table_prop_field` = #{tablePropField},
+                </if>
+                <if test="tableDescField != null">
+                    `table_desc_field` = #{tableDescField},
+                </if>
+                <if test="tableQueryCondition != null">
+                    `table_query_condition` = #{tableQueryCondition},
+                </if>
+                <if test="linkUrl != null">
+                    `link_url` = #{linkUrl},
+                </if>
+                <if test="urlPropField != null">
+                    `url_prop_field` = #{urlPropField},
+                </if>
+                <if test="urlDescField != null">
+                    `url_desc_field` = #{urlDescField},
+                </if>
+                <if test="urlParam != null">
+                    `url_param` = #{urlParam},
+                </if>
+                <if test="enumData != null">
+                    `enum_data` = #{enumData},
+                </if>
+                <if test="isValid != null">
+                    `is_valid` = #{isValid},
+                </if>
+                <if test="createTime != null">
+                    `create_time` = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    `update_time` = #{updateTime},
+                </if>
+                <if test="primaryKey != null">
+                    `primary_key` = #{primaryKey},
+                </if>
+                <if test="create != null">
+                    `create` = #{create},
+                </if>
+                <if test="dictName != null">
+                    `dict_name` = #{dictName},
+                </if>
+        </set>
+    </insert>
+    <update id="updateByPrimaryKeySelective"  useGeneratedKeys="true">
+        update s_func_property
+        <set>
+            <if test="funcId != null" >
+                 `func_id` = #{funcId},
+            </if>
+            <if test="propName != null" >
+                 `prop_name` = #{propName},
+            </if>
+            <if test="propKey != null" >
+                 `prop_key` = #{propKey},
+            </if>
+            <if test="columnName != null" >
+                 `column_name` = #{columnName},
+            </if>
+            <if test="viewType != null" >
+                 `view_type` = #{viewType},
+            </if>
+            <if test="defaultValue != null" >
+                 `default_value` = #{defaultValue},
+            </if>
+            <if test="required != null" >
+                 `required` = #{required},
+            </if>
+            <if test="regex != null" >
+                 `regex` = #{regex},
+            </if>
+            <if test="maxLength != null" >
+                 `max_length` = #{maxLength},
+            </if>
+            <if test="index != null" >
+                 `index` = #{index},
+            </if>
+            <if test="edit != null" >
+                 `edit` = #{edit},
+            </if>
+            <if test="searchView != null" >
+                 `search_view` = #{searchView},
+            </if>
+            <if test="detailView != null" >
+                 `detail_view` = #{detailView},
+            </if>
+            <if test="listView != null" >
+                 `list_view` = #{listView},
+            </if>
+            <if test="joinNext != null" >
+                 `join_next` = #{joinNext},
+            </if>
+            <if test="link != null" >
+                 `link` = #{link},
+            </if>
+            <if test="dataType != null" >
+                 `data_type` = #{dataType},
+            </if>
+            <if test="linkTableName != null" >
+                 `link_table_name` = #{linkTableName},
+            </if>
+            <if test="tablePropField != null" >
+                 `table_prop_field` = #{tablePropField},
+            </if>
+            <if test="tableDescField != null" >
+                 `table_desc_field` = #{tableDescField},
+            </if>
+            <if test="tableQueryCondition != null" >
+                 `table_query_condition` = #{tableQueryCondition},
+            </if>
+            <if test="linkUrl != null" >
+                 `link_url` = #{linkUrl},
+            </if>
+            <if test="urlPropField != null" >
+                 `url_prop_field` = #{urlPropField},
+            </if>
+            <if test="urlDescField != null" >
+                 `url_desc_field` = #{urlDescField},
+            </if>
+            <if test="urlParam != null" >
+                 `url_param` = #{urlParam},
+            </if>
+            <if test="enumData != null" >
+                 `enum_data` = #{enumData},
+            </if>
+            <if test="isValid != null" >
+                 `is_valid` = #{isValid},
+            </if>
+            <if test="createTime != null" >
+                 `create_time` = #{createTime},
+            </if>
+            <if test="updateTime != null" >
+                 `update_time` = #{updateTime},
+            </if>
+            <if test="primaryKey != null" >
+                 `primary_key` = #{primaryKey},
+            </if>
+            <if test="create != null" >
+                 `create` = #{create},
+            </if>
+            <if test="dictName != null">
+                `dict_name` = #{dictName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

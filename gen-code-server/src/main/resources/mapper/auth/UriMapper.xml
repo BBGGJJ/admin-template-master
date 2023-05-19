@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zomyun.erp.boss.auth.mapper.UriMapper">
+    <resultMap id="BaseResultMap" type="com.zomyun.erp.boss.auth.entity.UriEntity">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="uri_name" jdbcType="VARCHAR" property="uriName"/>
+        <result column="uri_code" jdbcType="VARCHAR" property="uriCode"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="index" jdbcType="INTEGER" property="index"/>
+        <result column="uri_description" jdbcType="VARCHAR" property="uriDescription"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="app_code" jdbcType="INTEGER" property="appCode"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="func_code" jdbcType="TIMESTAMP" property="funcCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+     `id`,`path`,`uri_name`,`uri_description`,`parent_id`,`uri_code`,`icon`,`app_code`,`type`,`create_time`,`update_time`,`index`,`func_code`
+    </sql>
+
+    <sql id="limit">
+        <if test='offset != 0 and limit != 0'>
+            limit #{offset}, #{limit}
+        </if>
+
+        <if test='offset == 0 and limit != 0'>
+            limit #{limit}
+        </if>
+    </sql>
+
+    <sql id="queryWhere">
+        <where>
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="path != null">
+                and `path` = #{path}
+            </if>
+            <if test="uriName != null">
+                and `uri_name` = #{uriName}
+            </if>
+            <if test="uriCode != null">
+                and `uri_code` = #{uriCode}
+            </if>
+            <if test="icon != null">
+                and `icon` = #{icon}
+            </if>
+            <if test="uriDescription != null">
+                and `uri_description` = #{uriDescription}
+            </if>
+            <if test="parentId != null">
+                and `parent_id` = #{parentId}
+            </if>
+            <if test="appCode != null">
+                and `app_code` = #{appCode}
+            </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+            <if test="createTime != null">
+                and `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and `update_time` = #{updateTime}
+            </if>
+            <if test="funcCode != null">
+                and `func_code` = #{funcCode}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByParam" parameterType="com.zomyun.erp.boss.auth.param.UriParam" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from a_uri
+        <include refid="queryWhere"/>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="orderByClause == null">
+            order by id desc
+        </if>
+        <include refid="limit"/>
+    </select>
+
+    <select id="countByParam" resultType="java.lang.Long">
+        SELECT count(*)
+        from a_uri
+        <include refid="queryWhere"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from a_uri
+        where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete from a_uri
+        where id = #{id}
+    </delete>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO a_uri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="path != null">
+                `path`,
+            </if>
+            <if test="uriName != null">
+                `uri_name`,
+            </if>
+            <if test="uriDescription != null">
+                `uri_description`,
+            </if>
+            <if test="parentId != null">
+                `parent_id`,
+            </if>
+            <if test="appCode != null">
+                `app_code`,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+            <if test="uriCode != null">
+                `uri_code`,
+            </if>
+            <if test="icon != null">
+                `icon`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+            <if test="funcCode != null">
+                `func_code`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="path != null">
+                #{path},
+            </if>
+            <if test="uriName != null">
+                #{uriName},
+            </if>
+            <if test="uriDescription != null">
+                #{uriDescription},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="appCode != null">
+                #{appCode},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="uriCode != null">
+                #{uriCode},
+            </if>
+            <if test="icon != null">
+                #{icon},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="funcCode != null">
+                #{funcCode},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch">
+        INSERT INTO a_uri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `path`,
+            `uri_name`,
+            `uri_description`,
+            `parent_id`,
+            `app_code`,
+            `type`,
+            `create_time`,
+            `update_time`,
+            `uri_code`,
+            `icon`,
+            `func_code`,
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{item.path},
+                #{item.uriName},
+                #{item.uriDescription},
+                #{item.parentId},
+                #{item.appCode},
+                #{item.type},
+                #{item.createTime},
+                #{item.updateTime},
+                #{uriCode},
+                #{icon},
+                #{funcCode},
+            </trim>
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate">
+        INSERT INTO a_uri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="path != null">
+                `path`,
+            </if>
+            <if test="uriName != null">
+                `uri_name`,
+            </if>
+            <if test="uriDescription != null">
+                `uri_description`,
+            </if>
+            <if test="parentId != null">
+                `parent_id`,
+            </if>
+            <if test="appCode != null">
+                `app_code`,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+            <if test="uriCode != null">
+                `uri_code`,
+            </if>
+            <if test="icon != null">
+                `icon`,
+            </if>
+            <if test="funcCode != null">
+                `func_code`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="path != null">
+                #{path},
+            </if>
+            <if test="uriName != null">
+                #{uri_name},
+            </if>
+            <if test="uriDescription != null">
+                #{uri_description},
+            </if>
+            <if test="parentId != null">
+                #{parent_id},
+            </if>
+            <if test="appCode != null">
+                #{app_code},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="createTime != null">
+                #{create_time},
+            </if>
+            <if test="updateTime != null">
+                #{update_time},
+            </if>
+            <if test="uriCode != null">
+                #{uriCode},
+            </if>
+            <if test="icon != null">
+                #{icon},
+            </if>
+            <if test="funcCode != null">
+                #{funcCode},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <set>
+            <if test="path != null">
+                `path` = #{path},
+            </if>
+            <if test="uriName != null">
+                `uri_name` = #{uriName},
+            </if>
+            <if test="uriDescription != null">
+                `uri_description` = #{uriDescription},
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId},
+            </if>
+            <if test="appCode != null">
+                `app_code` = #{appCode},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="uriCode != null">
+                `uri_code` = #{uriCode},
+            </if>
+            <if test="icon != null">
+                `icon` = #{icon},
+            </if>
+            <if test="funcCode != null">
+                `func_code` = #{funcCode},
+            </if>
+        </set>
+    </insert>
+    <update id="updateByPrimaryKeySelective" useGeneratedKeys="true">
+        update a_uri
+        <set>
+            <if test="path != null">
+                `path` = #{path},
+            </if>
+            <if test="uriName != null">
+                `uri_name` = #{uriName},
+            </if>
+            <if test="uriDescription != null">
+                `uri_description` = #{uriDescription},
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId},
+            </if>
+            <if test="appCode != null">
+                `app_code` = #{appCode},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="uriCode != null">
+                `uri_code` = #{uriCode},
+            </if>
+            <if test="icon != null">
+                `icon` = #{icon},
+            </if>
+            <if test="funcCode != null">
+                `func_code` = #{funcCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateIndexs">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update a_uri set `index` = #{item.index} where id=#{item.id}
+        </foreach>
+    </update>
+</mapper>

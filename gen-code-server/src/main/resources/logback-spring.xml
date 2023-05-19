@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--配置日志的上下文名称-->
+    <contextName>${log.context.name}</contextName>
+    <!-- 常量定义start -->
+    <!--项目名称，也是存储日志的具体目录-->
+    <property name="log.context.name" value="agedness-admin"/>
+    <!--日志的字符编码-->
+    <property name="log.charset" value="UTF-8"/>
+    <!-- 常量定义end -->
+
+    <!--对应spring环境变量为test的日志配置，只做控制台输出配置-->
+    <appender name="STDOUT-JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <callerData>
+                    <classFieldName>class</classFieldName>
+                    <methodFieldName>method</methodFieldName>
+                    <lineFieldName>line</lineFieldName>
+                    <fileFieldName>file</fileFieldName>
+                </callerData>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>CST</timeZone>
+                </timestamp>
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+                <nestedField>
+                    <fieldName>mdc</fieldName>
+                    <providers>
+                        <mdc />
+                    </providers>
+                </nestedField>
+                <stackTrace>
+                    <fieldName>stackTrace</fieldName>
+                    <!-- maxLength - limit the length of the stack trace -->
+                    <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                        <maxDepthPerThrowable>200</maxDepthPerThrowable>
+                        <maxLength>10240</maxLength>
+                        <rootCauseFirst>true</rootCauseFirst>
+                    </throwableConverter>
+                </stackTrace>
+                <message />
+                <throwableClassName>
+                    <fieldName>exceptionClass</fieldName>
+                </throwableClassName>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!--控制台日志输出配置，可以匹配色彩和高亮-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [T=%thread] %highlight(%-5level) C=%cyan(%logger{50}) - %yellow([%file:%line]) TID=[%X{traceId}] - %m%n </pattern>
+            <charset>${log.charset}</charset>
+        </encoder>
+    </appender>
+
+    <!-- spring日志 -->
+    <logger name="org.springframework.web" level="INFO" />
+
+    <root level="info">
+        <appender-ref ref="STDOUT-JSON"/>
+    </root>
+</configuration>
